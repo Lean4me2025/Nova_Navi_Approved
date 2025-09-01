@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA — Grand Rising</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h1>Welcome to NOVA</h1>
+        <span class="badge">Purpose Engine • v1.0</span>
+      </div>
+      <p class="small">NOVA greets the user with a short audio intro and a gentle start. If autoplay is blocked, press Start.</p>
+      <div id="audioWrap">
+        <audio id="introAudio" src="/assets/audio/intro.mp3" preload="auto"></audio>
+      </div>
+      <div style="margin-top:12px">
+        <button class="btn" id="startBtn">Start</button>
+        <button class="btn" id="skipBtn" style="margin-left:8px; background: #1e1e2a; color:#f2f2f7;">Skip Audio</button>
+      </div>
+      <hr/>
+      <p class="small">NOVA uses her local knowledge first and checks for new career data monthly.</p>
+    </div>
+    <footer>© NOVA & NAVI</footer>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

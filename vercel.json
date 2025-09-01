@@ -1,8 +1,5 @@
 {
   "crons": [
-    {
-      "path": "/api/cron/bls-ooh-monthly",
-      "schedule": "0 12 L * *"
-    }
+    { "path": "/api/cron/bls-ooh-monthly", "schedule": "0 12 1 * *" }
   ]
 }

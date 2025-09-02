@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Data Analyst",
+    "soc": "15-2051",
+    "categories": [
+      "Analytical",
+      "Tech"
+    ],
+    "median_pay": 82000,
+    "outlook": "Faster than average"
+  },
+  {
+    "title": "Operations Research Analyst",
+    "soc": "15-2031",
+    "categories": [
+      "Analytical",
+      "Business"
+    ],
+    "median_pay": 97200,
+    "outlook": "Much faster than average"
+  },
+  {
+    "title": "Actuary",
+    "soc": "15-2011",
+    "categories": [
+      "Analytical",
+      "Business"
+    ],
+    "median_pay": 114000,
+    "outlook": "Much faster than average"
+  },
+  {
+    "title": "UX Designer",
+    "soc": "15-1255",
+    "categories": [
+      "Creative",
+      "Tech"
+    ],
+    "median_pay": 98000,
+    "outlook": "Faster than average"
+  },
+  {
+    "title": "Project Manager",
+    "soc": "11-1021",
+    "categories": [
+      "Leadership",
+      "Business"
+    ],
+    "median_pay": 95000,
+    "outlook": "Average"
+  },
+  {
+    "title": "Software Developer",
+    "soc": "15-1252",
+    "categories": [
+      "Tech",
+      "Analytical"
+    ],
+    "median_pay": 124000,
+    "outlook": "Much faster than average"
+  },
+  {
+    "title": "Registered Nurse",
+    "soc": "29-1141",
+    "categories": [
+      "Service",
+      "People"
+    ],
+    "median_pay": 84000,
+    "outlook": "Faster than average"
+  }
+]

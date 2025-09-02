@@ -1,82 +1,86 @@
-// NOVA Intro — main.js
 
-// === Editable Transcript Text ===
-// Replace this string with the exact words from your intro audio
-// to have the text match *exactly* what is spoken.
-const NOVA_TRANSCRIPT = `Welcome to NOVA. Your journey to purpose, clarity, and momentum begins now.`;
+const state = { traits: [], careers: [], selected: new Set() };
+const views = {
+  intro: document.getElementById('intro'),
+  traits: document.getElementById('traits'),
+  matches: document.getElementById('matches'),
+  book: document.getElementById('book'),
+  email: document.getElementById('email'),
+};
+function show(id){ Object.values(views).forEach(v=>v.classList.remove('active')); views[id].classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
 
-// Cache DOM
-const startBtn = document.getElementById('startBtn');
-const audioEl = document.getElementById('introAudio');
-const marquee = document.getElementById('marquee');
-const marqueeSpan = document.getElementById('marquee-text');
-const helperNote = document.getElementById('helperNote');
+async function loadData(){
+  const t = await fetch('assets/data/traitdata.json').then(r=>r.json());
+  const c = await fetch('assets/data/careers.json').then(r=>r.json());
+  state.traits = t; state.careers = c; renderTraits();
+}
+loadData();
 
-// Prepare marquee text
-marqueeSpan.textContent = NOVA_TRANSCRIPT;
+const audio = document.getElementById('introAudio');
+document.getElementById('startBtn').addEventListener('click', async () => { try{ await audio.play(); }catch(_){} audio.onended=()=>show('traits'); });
+document.getElementById('skipBtn').addEventListener('click', ()=> show('traits'));
 
-// Helper: build a CSS animation dynamically to scroll text
-function applyMarquee(durationSeconds) {
-  // Compute distance: text width + container width, so the full sentence scrolls all the way across
-  const containerWidth = marquee.clientWidth;
-  const textWidth = marqueeSpan.getBoundingClientRect().width;
-  const totalDistance = containerWidth + textWidth;
-
-  // We use a CSS animation that translates from +containerWidth to -textWidth over `durationSeconds`
-  const styleId = 'dynamic-marquee-style';
-  let styleTag = document.getElementById(styleId);
-  if (!styleTag) {
-    styleTag = document.createElement('style');
-    styleTag.id = styleId;
-    document.head.appendChild(styleTag);
-  }
-
-  // Unique keyframe name in case of repeated starts
-  const kfName = `scrollKF_${Date.now()}`;
-  styleTag.textContent = `@keyframes ${kfName} {
-    0% { transform: translateX(${containerWidth}px); }
-    100% { transform: translateX(${-textWidth}px); }
-  }
-  #marquee-text {
-    animation: ${kfName} ${durationSeconds}s linear forwards;
-  }`;
+function renderTraits(){
+  const grid = document.getElementById('traitGrid'); grid.innerHTML='';
+  state.traits.forEach(t=>{
+    const item=document.createElement('div'); item.className='trait';
+    const left=document.createElement('div'); left.innerHTML=`<div>${t.name}</div><div class="category"><small>${t.category}</small></div>`;
+    const right=document.createElement('input'); right.type='checkbox';
+    right.addEventListener('change', (e)=>{ if(e.target.checked){ state.selected.add(t.name); item.classList.add('on'); } else { state.selected.delete(t.name); item.classList.remove('on'); } });
+    item.addEventListener('click',(e)=>{ if(e.target.tagName.toLowerCase()!=='input'){ right.checked=!right.checked; right.dispatchEvent(new Event('change')); } });
+    item.appendChild(left); item.appendChild(right); grid.appendChild(item);
+  });
 }
 
-// Attach click handler to start
-startBtn.addEventListener('click', async () => {
-  // Ensure we can read metadata to sync duration
-  if (audioEl.readyState < 1) {
-    try {
-      await audioEl.load();
-    } catch (e) {}
-  }
+function scoreCategories(){
+  const counts={}; state.traits.forEach(t=>{ if(state.selected.has(t.name)){ counts[t.category]=(counts[t.category]||0)+1; } }); return counts;
+}
+function rankCareers(){
+  const counts=scoreCategories();
+  const scored=state.careers.map(c=>{ const s=c.categories.reduce((a,cat)=>a+(counts[cat]||0),0); return {...c,score:s}; })
+    .sort((a,b)=> b.score - a.score || (b.median_pay||0)-(a.median_pay||0));
+  return scored.slice(0,20);
+}
+function renderMatches(){
+  const list=document.getElementById('matchList'); list.innerHTML=''; const top=rankCareers();
+  if(top.length===0){ list.innerHTML=`<div class="card"><strong>No matches yet.</strong> Please select some traits first.</div>`; return; }
+  top.forEach(c=>{
+    const card=document.createElement('div'); card.className='card'; card.innerHTML=`
+      <h3>${c.title}</h3>
+      <p><strong>SOC:</strong> ${c.soc || '—'}</p>
+      <p><strong>Aligned:</strong> ${c.categories.join(', ')}</p>
+      <p><strong>Median Pay:</strong> ${c.median_pay? ('$'+c.median_pay.toLocaleString()): '—'}</p>
+      <p><strong>Outlook:</strong> ${c.outlook || '—'}</p>
+      <div class="actions">
+        <button class="btn" onclick="openBook()">Deepen with Purpose Book</button>
+        <button class="btn" onclick="openEmail()">Get Updates</button>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+document.getElementById('toMatches').addEventListener('click', ()=>{ renderMatches(); show('matches'); });
+function openBook(){ show('book'); } function openEmail(){ show('email'); }
 
-  // When metadata is available, set up the scroll duration
-  const startPlayback = () => {
-    const duration = (isFinite(audioEl.duration) && audioEl.duration > 0) ? audioEl.duration : 20;
-    applyMarquee(duration);
-    audioEl.currentTime = 0;
-    audioEl.play().catch(() => {
-      // If playback was blocked, hint to user
-      helperNote.textContent = 'Tap again to allow audio playback.';
-    });
-    startBtn.disabled = true;
-    startBtn.textContent = 'Playing…';
-    helperNote.textContent = 'Listening… the message will finish when the text reaches the end.';
-  };
-
-  if (isNaN(audioEl.duration) || !isFinite(audioEl.duration) || audioEl.duration === 0) {
-    audioEl.addEventListener('loadedmetadata', startPlayback, { once: true });
-    // Fallback timeout in case metadata event is slow
-    setTimeout(startPlayback, 1200);
-  } else {
-    startPlayback();
-  }
+document.getElementById('downloadReport').addEventListener('click', ()=>{
+  const selected=Array.from(state.selected); const top=rankCareers(); const reportWindow=window.open('','printWin'); const now=new Date().toLocaleString();
+  reportWindow.document.write(`
+    <html><head><title>NOVA Report</title>
+      <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter;padding:24px}h1{margin:0 0 8px}.muted{color:#444}.section{margin:16px 0}.card{border:1px solid #ddd;border-radius:10px;padding:12px;margin:8px 0}</style>
+    </head><body>
+      <h1>NOVA Report</h1>
+      <div class="muted">${now}</div>
+      <div class="section"><h2>Selected Traits</h2><div>${selected.length? selected.join(', '):'No traits selected'}</div></div>
+      <div class="section"><h2>Top Matches</h2>${top.map(c=>`
+        <div class="card"><strong>${c.title}</strong><br/>SOC: ${c.soc || '—'}<br/>Aligned: ${c.categories.join(', ')}<br/>Median Pay: ${c.median_pay? ('$'+c.median_pay.toLocaleString()):'—'}<br/>Outlook: ${c.outlook || '—'}</div>
+      `).join('')}</div>
+    </body></html>`);
+  reportWindow.document.close(); reportWindow.focus(); reportWindow.print();
 });
 
-// When audio ends, gently update UI (you can navigate to the next screen here if desired)
-audioEl.addEventListener('ended', () => {
-  startBtn.textContent = 'Replay';
-  startBtn.disabled = false;
-  helperNote.textContent = 'Intro finished. Press Replay to hear it again or proceed to the next step.';
+document.getElementById('restart').addEventListener('click', ()=>{
+  state.selected.clear();
+  document.querySelectorAll('#traitGrid .trait input[type=checkbox]').forEach(cb=>{ cb.checked=false; cb.closest('.trait').classList.remove('on'); });
+  show('traits');
 });
+document.getElementById('backToMatches').addEventListener('click', ()=> show('matches'));
+document.getElementById('backHome').addEventListener('click', ()=> show('matches'));

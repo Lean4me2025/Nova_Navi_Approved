@@ -1,0 +1,252 @@
+[
+  {
+    "id": "t1",
+    "name": "Data-Driven",
+    "category": "Analytical"
+  },
+  {
+    "id": "t2",
+    "name": "Problem Solver",
+    "category": "Analytical"
+  },
+  {
+    "id": "t3",
+    "name": "Systems Thinking",
+    "category": "Analytical"
+  },
+  {
+    "id": "t4",
+    "name": "Quantitative",
+    "category": "Analytical"
+  },
+  {
+    "id": "t5",
+    "name": "Research-Oriented",
+    "category": "Analytical"
+  },
+  {
+    "id": "t1",
+    "name": "Idea Generator",
+    "category": "Creative"
+  },
+  {
+    "id": "t2",
+    "name": "Design Sense",
+    "category": "Creative"
+  },
+  {
+    "id": "t3",
+    "name": "Storytelling",
+    "category": "Creative"
+  },
+  {
+    "id": "t4",
+    "name": "Artistic",
+    "category": "Creative"
+  },
+  {
+    "id": "t5",
+    "name": "Innovative",
+    "category": "Creative"
+  },
+  {
+    "id": "t1",
+    "name": "Empathetic",
+    "category": "People"
+  },
+  {
+    "id": "t2",
+    "name": "Team Player",
+    "category": "People"
+  },
+  {
+    "id": "t3",
+    "name": "Teacher",
+    "category": "People"
+  },
+  {
+    "id": "t4",
+    "name": "Customer-Focused",
+    "category": "People"
+  },
+  {
+    "id": "t5",
+    "name": "Negotiator",
+    "category": "People"
+  },
+  {
+    "id": "t1",
+    "name": "Visionary",
+    "category": "Leadership"
+  },
+  {
+    "id": "t2",
+    "name": "Decision Maker",
+    "category": "Leadership"
+  },
+  {
+    "id": "t3",
+    "name": "Accountable",
+    "category": "Leadership"
+  },
+  {
+    "id": "t4",
+    "name": "Mentor",
+    "category": "Leadership"
+  },
+  {
+    "id": "t5",
+    "name": "Influencer",
+    "category": "Leadership"
+  },
+  {
+    "id": "t1",
+    "name": "Precision",
+    "category": "Detail"
+  },
+  {
+    "id": "t2",
+    "name": "Organized",
+    "category": "Detail"
+  },
+  {
+    "id": "t3",
+    "name": "Documentation",
+    "category": "Detail"
+  },
+  {
+    "id": "t4",
+    "name": "Compliance-Minded",
+    "category": "Detail"
+  },
+  {
+    "id": "t5",
+    "name": "Quality-First",
+    "category": "Detail"
+  },
+  {
+    "id": "t1",
+    "name": "Mechanical",
+    "category": "Hands-On"
+  },
+  {
+    "id": "t2",
+    "name": "Builder",
+    "category": "Hands-On"
+  },
+  {
+    "id": "t3",
+    "name": "DIY Mindset",
+    "category": "Hands-On"
+  },
+  {
+    "id": "t4",
+    "name": "Tinkerer",
+    "category": "Hands-On"
+  },
+  {
+    "id": "t5",
+    "name": "Maker",
+    "category": "Hands-On"
+  },
+  {
+    "id": "t1",
+    "name": "Field Work",
+    "category": "Outdoors"
+  },
+  {
+    "id": "t2",
+    "name": "Nature-Friendly",
+    "category": "Outdoors"
+  },
+  {
+    "id": "t3",
+    "name": "Active",
+    "category": "Outdoors"
+  },
+  {
+    "id": "t4",
+    "name": "Adventurous",
+    "category": "Outdoors"
+  },
+  {
+    "id": "t5",
+    "name": "Weather-Tolerant",
+    "category": "Outdoors"
+  },
+  {
+    "id": "t1",
+    "name": "Coding",
+    "category": "Tech"
+  },
+  {
+    "id": "t2",
+    "name": "Cybersecurity",
+    "category": "Tech"
+  },
+  {
+    "id": "t3",
+    "name": "Cloud",
+    "category": "Tech"
+  },
+  {
+    "id": "t4",
+    "name": "Automation",
+    "category": "Tech"
+  },
+  {
+    "id": "t5",
+    "name": "AI/ML",
+    "category": "Tech"
+  },
+  {
+    "id": "t1",
+    "name": "Financial Acumen",
+    "category": "Business"
+  },
+  {
+    "id": "t2",
+    "name": "Market Insight",
+    "category": "Business"
+  },
+  {
+    "id": "t3",
+    "name": "Operations",
+    "category": "Business"
+  },
+  {
+    "id": "t4",
+    "name": "Sales-Driven",
+    "category": "Business"
+  },
+  {
+    "id": "t5",
+    "name": "Entrepreneurial",
+    "category": "Business"
+  },
+  {
+    "id": "t1",
+    "name": "Helper",
+    "category": "Service"
+  },
+  {
+    "id": "t2",
+    "name": "Community-Oriented",
+    "category": "Service"
+  },
+  {
+    "id": "t3",
+    "name": "Patient",
+    "category": "Service"
+  },
+  {
+    "id": "t4",
+    "name": "Reliable",
+    "category": "Service"
+  },
+  {
+    "id": "t5",
+    "name": "Ethical",
+    "category": "Service"
+  }
+]

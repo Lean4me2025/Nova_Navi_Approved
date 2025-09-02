@@ -16,7 +16,11 @@
         <button id="startBtn" class="btn primary">Start</button>
         <button id="skipBtn" class="btn subtle">Skip intro</button>
       </div>
-      <audio id="introAudio" preload="auto" src="assets/audio/intro.mp3"></audio>
+      <audio id="introAudio" preload="auto" playsinline>
+        <source src="assets/audio/intro.v2.mp3" type="audio/mpeg">
+        <source src="assets/audio/intro.m4a" type="audio/mp4">
+        Your browser doesn’t support the audio element.
+      </audio>
     </section>
     <section id="traits" class="view">
       <header class="section-header">

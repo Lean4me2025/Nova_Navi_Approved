@@ -17,7 +17,16 @@ async function loadData(){
 loadData();
 
 const audio = document.getElementById('introAudio');
-document.getElementById('startBtn').addEventListener('click', async () => { try{ await audio.play(); }catch(_){} audio.onended=()=>show('traits'); });
+const startBtn = document.getElementById('startBtn');
+document.getElementById('startBtn').addEventListener('click', async () => {
+  try {
+    await audio.play();                 // user gesture unlocks audio
+    audio.onended = () => show('traits');
+  } catch (err) {
+    console.warn('Audio play blocked:', err);
+    startBtn.textContent = 'Tap to Play Intro';
+  }
+});
 document.getElementById('skipBtn').addEventListener('click', ()=> show('traits'));
 
 function renderTraits(){

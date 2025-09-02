@@ -1,0 +1,97 @@
+/* NOVA Intro — styles.css */
+:root {
+  --bg: #0b0f17;
+  --fg: #e6eefc;
+  --muted: #aeb8cc;
+  --accent: #78a6ff;
+  --btn-fg: #0b0f17;
+  --btn-bg: #e6eefc;
+  --btn-bg-hover: #ffffff;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1100px 700px at 50% -200px, #162032, var(--bg));
+  color: var(--fg);
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: min(100%, 980px);
+  padding: 6vh 5vw;
+  text-align: center;
+}
+
+.brand { margin-bottom: 5vh; }
+.nova-title {
+  margin: 0;
+  font-size: clamp(42px, 8vw, 96px);
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  text-shadow: 0 8px 44px rgba(120,166,255,.35);
+}
+.tagline {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: clamp(14px, 2.4vw, 18px);
+}
+
+.marquee-wrap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(120,166,255,.25);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  height: clamp(56px, 10vh, 84px);
+  margin: 3vh auto 4vh;
+  display: flex;
+  align-items: center;
+}
+
+.marquee {
+  white-space: nowrap;
+  will-change: transform;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+#marquee-text {
+  display: inline-block;
+  font-size: clamp(18px, 3.5vw, 28px);
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--fg);
+  text-shadow: 0 2px 18px rgba(120,166,255,.25);
+}
+
+.btn-primary {
+  appearance: none;
+  border: none;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-size: clamp(18px, 3.2vw, 22px);
+  font-weight: 800;
+  letter-spacing: .04em;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--btn-bg), #dfe9ff);
+  color: var(--btn-fg);
+  box-shadow: 0 10px 24px rgba(0,0,0,.25), inset 0 0 0 2px rgba(120,166,255,.35);
+  transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-primary:hover { background: var(--btn-bg-hover); }
+.btn-primary:active { transform: translateY(1px); }
+
+.helper-note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee, #marquee-text { animation: none !important; }
+}

@@ -5,79 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NOVA — Intro</title>
   <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-           margin:0; display:flex; align-items:center; justify-content:center; min-height:100vh; }
-    .wrap { text-align:center; padding:24px; max-width:720px; }
-    .title { font-size: clamp(28px, 4vw, 40px); margin-bottom: 12px; }
-    .sub { color:#6b7280; margin-bottom: 24px; }
-    .row { margin-top: 18px; display:flex; gap:12px; justify-content:center; }
-    .btn { font-size:18px; padding:14px 22px; border-radius:12px; border:0; cursor:pointer; }
-    .primary { background:#e5e7eb; }
-    .link { text-decoration:none; line-height:44px; }
-    .muted { font-size:14px; color:#9ca3af; margin-top:10px; }
+    body { font-family: system-ui, sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+    .wrap { text-align:center; }
+    button { padding:12px 20px; font-size:18px; border-radius:8px; border:0; cursor:pointer; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="title">Welcome to NOVA</div>
-    <div class="sub">Tap <em>Start</em>. NOVA will speak, then you’ll go to the traits.</div>
-
-    <!-- Hidden player (we control it via JS) -->
+    <h1>Welcome to NOVA</h1>
+    <p>Tap <em>Start</em>. NOVA will speak, then you’ll go to the traits.</p>
     <audio id="introAudio" preload="auto">
-      <source src="/assets/audio/intro.mp3" type="audio/mpeg" />
+      <source src="/assets/audio/intro.mp3" type="audio/mpeg">
     </audio>
-
-    <div class="row">
-      <button id="startBtn" class="btn primary">Start</button>
-      <a id="skipLink" class="link" href="/traits.html" aria-label="Skip intro">Skip →</a>
+    <div>
+      <button id="startBtn">Start</button>
+      <a href="/traits.html">Skip →</a>
     </div>
-
-    <div id="hint" class="muted" aria-live="polite"></div>
+    <div id="hint"></div>
   </div>
-
-  <script>
-    (function () {
-      const audio = document.getElementById('introAudio');
-      const startBtn = document.getElementById('startBtn');
-      const hint = document.getElementById('hint');
-      const NEXT_URL = '/traits.html';
-
-      // Warm the audio once it can play (harmless if blocked)
-      window.addEventListener('load', () => {
-        const warm = () => { audio.play().catch(()=>{}); audio.pause(); audio.currentTime = 0; };
-        if (audio.readyState >= 2) warm();
-        else audio.addEventListener('canplay', warm, { once: true });
-      });
-
-      // If audio ends naturally → advance
-      audio.addEventListener('ended', () => {
-        window.location.href = NEXT_URL;
-      });
-
-      // Click Start: play audio; if blocked, show hint and still allow Skip
-      startBtn.addEventListener('click', async () => {
-        startBtn.disabled = true;
-        startBtn.textContent = 'Starting…';
-        try {
-          await audio.play();                // play intro
-          startBtn.textContent = 'Playing…';
-          hint.textContent = 'Listening… you’ll go to traits when the audio finishes.';
-        } catch (e) {
-          // Autoplay blocked or device muted
-          startBtn.textContent = 'Start';
-          startBtn.disabled = false;
-          hint.textContent = 'If you don’t hear audio, check that your device/site isn’t muted. You can tap Skip →';
-        }
-      });
-
-      // Extra safety: if nothing happens within 90s, move on anyway
-      setTimeout(() => {
-        if (!audio.paused && !audio.ended) return;  // audio is playing; let it finish
-        // still stuck? nudge to traits
-        // window.location.href = NEXT_URL;  // enable if you want a hard timeout
-      }, 90000);
-    })();
-  </script>
+<script>
+const audio = document.getElementById('introAudio');
+const btn = document.getElementById('startBtn');
+const hint = document.getElementById('hint');
+btn.addEventListener('click', async () => {
+  btn.disabled = true;
+  try {
+    await audio.play();
+    hint.textContent = "Playing... You’ll go to traits after audio.";
+    audio.onended = () => window.location.href="/traits.html";
+  } catch(e) {
+    hint.textContent = "Error playing audio.";
+    window.location.href="/traits.html";
+  }
+});
+</script>
 </body>
 </html>

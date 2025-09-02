@@ -3,51 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NOVA — Your Purpose Matches</title>
-  <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin:0; padding:24px; }
-    h1 { margin: 0 0 12px; }
-    .muted { color:#6b7280; margin-bottom: 18px; }
-    .card { border: 1px solid #e5e7eb; border-radius:12px; padding:16px; margin:12px 0; }
-    .pct { font-weight:600; }
-    .row { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
-    .btn { font-size:16px; padding:12px 16px; border-radius:10px; border:0; background:#e5e7eb; text-decoration:none; display:inline-block; }
-    ul { margin:8px 0 0 18px; }
-    .pill { display:inline-block; padding:4px 8px; border-radius:999px; background:#f3f4f6; margin:0 6px 6px 0; font-size:12px; }
-  </style>
+  <title>NOVA — Results</title>
+  <style>body{font-family:sans-serif;margin:40px}h1{font-size:28px}.result{margin:12px 0;padding:10px;border:1px solid #ccc;border-radius:6px}</style>
 </head>
 <body>
   <h1>Your Purpose Matches</h1>
-  <div class="muted" id="picked"></div>
-  <div id="list"></div>
-
-  <div class="row">
-    <a class="btn" href="/traits.html">← Adjust traits</a>
-    <a class="btn" href="/navi.html">Continue to NAVI →</a>
-  </div>
-
-  <script>
-    (function(){
-      const mount = document.getElementById('list');
-      const picked = document.getElementById('picked');
-      const data = JSON.parse(localStorage.getItem('novaResults') || '{"selected":[],"scores":[]}');
-      const sel = data.selected || [];
-      picked.innerHTML = sel.length ? ('Picked traits: ' + sel.map(x=>'<span class="pill">'+x+'</span>').join('')) : 'No traits selected.';
-
-      const scores = (data.scores || []).slice(0, 6);
-      if(!scores.length){
-        mount.innerHTML = '<p>No matches yet. Try selecting a few traits and click Next.</p>';
-        return;
-      }
-      mount.innerHTML = scores.map(s => {
-        const careers = (s.careers||[]).map(c => '<li>'+c.title+'</li>').join('');
-        return `<div class="card">
-          <div><span class="pct">${s.percent}% match</span> — <strong>${s.field}</strong></div>
-          ${careers ? '<ul>'+careers+'</ul>' : ''}
-        </div>`;
-      }).join('');
-    })();
-  </script>
+  <div id="results"></div>
+  <p><a href="/traits.html">← Back to Traits</a> | <a href="/navi.html">Continue to NAVI →</a></p>
+<script>
+const results = JSON.parse(localStorage.getItem('novaResults')||"[]");
+const container=document.getElementById('results');
+if(results.length===0){container.innerHTML="<p>No traits selected.</p>";}
+else{results.forEach(r=>{const div=document.createElement('div');div.className='result';div.innerHTML=`<strong>${r.trait}</strong>: ${r.purpose}<br/>Careers: ${r.careers.join(", ")}`;container.appendChild(div);});}
+</script>
 </body>
 </html>

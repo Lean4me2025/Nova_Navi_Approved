@@ -3,65 +3,81 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NOVA — Intro (Diagnostic)</title>
+  <title>NOVA — Intro</title>
   <style>
+    :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
            margin:0; display:flex; align-items:center; justify-content:center; min-height:100vh; }
-    .wrap { text-align:center; padding:24px; max-width:760px; }
+    .wrap { text-align:center; padding:24px; max-width:720px; }
     .title { font-size: clamp(28px, 4vw, 40px); margin-bottom: 12px; }
     .sub { color:#6b7280; margin-bottom: 24px; }
-    .row { margin-top: 18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    .btn { font-size:18px; padding:14px 22px; border-radius:12px; border:0; cursor:pointer; background:#e5e7eb; }
-    .log { margin-top:16px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:13px; text-align:left; background:#f6f6f6; padding:12px; border-radius:8px; max-height:240px; overflow:auto; }
-    audio { width: 100%; max-width: 520px; margin: 10px auto; display:block; }
-    a.link { text-decoration:none; line-height:44px; }
+    .row { margin-top: 18px; display:flex; gap:12px; justify-content:center; }
+    .btn { font-size:18px; padding:14px 22px; border-radius:12px; border:0; cursor:pointer; }
+    .primary { background:#e5e7eb; }
+    .link { text-decoration:none; line-height:44px; }
+    .muted { font-size:14px; color:#9ca3af; margin-top:10px; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="title">Welcome to NOVA (Diagnostic Mode)</div>
-    <div class="sub">Tap Start. If audio fails, check the log below.</div>
+    <div class="title">Welcome to NOVA</div>
+    <div class="sub">Tap <em>Start</em>. NOVA will speak, then you’ll go to the traits.</div>
 
-    <audio id="introAudio" controls preload="auto">
+    <!-- Hidden player (we control it via JS) -->
+    <audio id="introAudio" preload="auto">
       <source src="/assets/audio/intro.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
     </audio>
 
     <div class="row">
-      <button id="startBtn" class="btn">Start</button>
-      <a class="link" href="/traits.html">Skip →</a>
+      <button id="startBtn" class="btn primary">Start</button>
+      <a id="skipLink" class="link" href="/traits.html" aria-label="Skip intro">Skip →</a>
     </div>
 
-    <div id="log" class="log"></div>
+    <div id="hint" class="muted" aria-live="polite"></div>
   </div>
 
   <script>
-    const audio = document.getElementById('introAudio');
-    const startBtn = document.getElementById('startBtn');
-    const logEl = document.getElementById('log');
-    const NEXT_URL = '/traits.html';
+    (function () {
+      const audio = document.getElementById('introAudio');
+      const startBtn = document.getElementById('startBtn');
+      const hint = document.getElementById('hint');
+      const NEXT_URL = '/traits.html';
 
-    function log(msg) {
-      logEl.textContent += msg + "\n";
-    }
+      // Warm the audio once it can play (harmless if blocked)
+      window.addEventListener('load', () => {
+        const warm = () => { audio.play().catch(()=>{}); audio.pause(); audio.currentTime = 0; };
+        if (audio.readyState >= 2) warm();
+        else audio.addEventListener('canplay', warm, { once: true });
+      });
 
-    startBtn.addEventListener('click', async () => {
-      log("Start button clicked.");
-      try {
-        await audio.play();
-        log("Audio started successfully.");
-        audio.onended = () => {
-          log("Audio ended → navigating to traits.html");
-          window.location.href = NEXT_URL;
-        };
-      } catch (e) {
-        log("Audio play() error: " + e);
-      }
-    });
+      // If audio ends naturally → advance
+      audio.addEventListener('ended', () => {
+        window.location.href = NEXT_URL;
+      });
 
-    audio.addEventListener('error', e => {
-      log("Audio element error: " + JSON.stringify(e));
-    });
+      // Click Start: play audio; if blocked, show hint and still allow Skip
+      startBtn.addEventListener('click', async () => {
+        startBtn.disabled = true;
+        startBtn.textContent = 'Starting…';
+        try {
+          await audio.play();                // play intro
+          startBtn.textContent = 'Playing…';
+          hint.textContent = 'Listening… you’ll go to traits when the audio finishes.';
+        } catch (e) {
+          // Autoplay blocked or device muted
+          startBtn.textContent = 'Start';
+          startBtn.disabled = false;
+          hint.textContent = 'If you don’t hear audio, check that your device/site isn’t muted. You can tap Skip →';
+        }
+      });
+
+      // Extra safety: if nothing happens within 90s, move on anyway
+      setTimeout(() => {
+        if (!audio.paused && !audio.ended) return;  // audio is playing; let it finish
+        // still stuck? nudge to traits
+        // window.location.href = NEXT_URL;  // enable if you want a hard timeout
+      }, 90000);
+    })();
   </script>
 </body>
 </html>

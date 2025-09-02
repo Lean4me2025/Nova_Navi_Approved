@@ -2,78 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVA — Purpose Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOVA — Intro</title>
   <link rel="stylesheet" href="styles.css" />
-  <meta name="theme-color" content="#111" />
 </head>
 <body>
-  <main id="app">
-    <section id="intro" class="view active">
-      <div class="intro-wrap">
-        <h1>Welcome to Nova</h1>
-        <p class="tagline">Find your path. Walk your purpose.</p>
-        <button id="startBtn" class="btn primary">Start</button>
-        <button id="skipBtn" class="btn subtle">Skip intro</button>
-      </div>
-      <audio id="introAudio" preload="auto" playsinline>
-        <source src="assets/audio/intro.v2.mp3" type="audio/mpeg">
-        <source src="assets/audio/intro.m4a" type="audio/mp4">
-        Your browser doesn’t support the audio element.
-      </audio>
-    </section>
-    <section id="traits" class="view">
-      <header class="section-header">
-        <h2>Select the traits that feel true to you</h2>
-        <p class="muted">Pick as many as resonate. We'll match them to careers.</p>
-      </header>
-      <div id="traitGrid" class="grid"></div>
-      <div class="actions">
-        <button id="toMatches" class="btn primary">See Matches</button>
-      </div>
-    </section>
-    <section id="matches" class="view">
-      <header class="section-header">
-        <h2>Your Matches</h2>
-        <p class="muted">Based on your selected traits.</p>
-      </header>
-      <div id="matchList" class="cards"></div>
-      <div class="actions">
-        <button id="downloadReport" class="btn">Save Report (PDF)</button>
-        <button id="restart" class="btn subtle">Start Over</button>
-      </div>
-    </section>
-    <section id="book" class="view">
-      <header class="section-header">
-        <h2>Purpose Book</h2>
-        <p>Deepen your journey.</p>
-      </header>
-      <div class="card single">
-        <h3>Purchase the Purpose Book</h3>
-        <p>Practical steps to unlock purpose with Nova &amp; Navi.</p>
-        <a class="btn primary" href="https://payhip.com/b/N7Lvg" target="_blank" rel="noopener">Get the Book</a>
-      </div>
-      <div class="actions">
-        <button id="backToMatches" class="btn subtle">Back</button>
-      </div>
-    </section>
-    <section id="email" class="view">
-      <header class="section-header">
-        <h2>Stay in the loop</h2>
-        <p class="muted">Get updates about Nova &amp; Navi.</p>
-      </header>
-      <form id="emailForm">
-        <label>Email
-          <input type="email" id="emailInput" placeholder="you@example.com" required />
-        </label>
-        <button type="submit" class="btn primary">Subscribe</button>
-      </form>
-      <p id="emailResult" class="muted"></p>
-      <div class="actions">
-        <button id="backHome" class="btn subtle">Back</button>
-      </div>
-    </section>
+  <main class="wrap">
+    <h1 class="title">Welcome to NOVA</h1>
+    <p class="subtitle">Your purpose journey begins here.</p>
+
+    <!-- Multi-source audio for maximum browser compatibility -->
+    <audio id="nova-intro" preload="metadata" playsinline>
+      <source src="assets/audio/Sierra Nova.mp3" type="audio/mpeg" />
+      <source src="assets/audio/Sierra Nova.ogg" type="audio/ogg" />
+      <source src="assets/audio/Sierra Nova.m4a" type="audio/mp4" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Fallback / manual control -->
+    <div id="play-overlay" class="overlay hidden">
+      <button id="play-btn" class="btn">▶ Play Intro</button>
+    </div>
+
+    <div class="controls">
+      <button id="replay-btn" class="btn btn-secondary">↺ Replay</button>
+      <button id="continue-btn" class="btn">Continue</button>
+    </div>
+
+    <p id="status" class="status" aria-live="polite"></p>
   </main>
-  <script src="main.js"></script>
+
+  <script src="script.js"></script>
 </body>
 </html>

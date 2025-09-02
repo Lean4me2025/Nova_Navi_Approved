@@ -1,1 +1,44 @@
-{"careers": [{"title": "Data Analyst", "traits": ["Creativity"]}]}
+{
+  "careers": [
+    {
+      "title": "Data Analyst",
+      "traits": [
+        "Problem Solving",
+        "Detail Oriented",
+        "Creativity"
+      ]
+    },
+    {
+      "title": "Project Manager",
+      "traits": [
+        "Leadership",
+        "Detail Oriented",
+        "Empathy"
+      ]
+    },
+    {
+      "title": "UX Designer",
+      "traits": [
+        "Creativity",
+        "Empathy",
+        "Problem Solving"
+      ]
+    },
+    {
+      "title": "Operations Manager",
+      "traits": [
+        "Leadership",
+        "Detail Oriented",
+        "Problem Solving"
+      ]
+    },
+    {
+      "title": "Customer Success Manager",
+      "traits": [
+        "Empathy",
+        "Leadership",
+        "Problem Solving"
+      ]
+    }
+  ]
+}

@@ -1,1 +1,39 @@
-<html><head><title>Results</title><link rel='stylesheet' href='css/styles.css'></head><body><h1>Results</h1><div id='results'></div><button class='btn' onclick="window.location='navi.html'">Continue to NAVI</button><script>const traits=JSON.parse(localStorage.getItem('nova_traits')||'[]');document.getElementById('results').textContent=traits.length?`You selected: ${traits.join(', ')}`:'No traits selected.';</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA Results</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="printbar">
+    <button class="btn" onclick="window.print()">Print / Save PDF</button>
+    <button class="btn" onclick="window.location.href='navi.html'">Continue to NAVI</button>
+  </div>
+  <main class="results">
+    <h1>Your Results</h1>
+    <p id="picked"></p>
+    <section id="matches"></section>
+  </main>
+<script>
+(async function(){
+  const traits = JSON.parse(localStorage.getItem('nova_traits')||'[]');
+  document.getElementById('picked').textContent = traits.length? 'You selected: '+traits.join(', ') : 'No traits selected.';
+  const res = await fetch('public/ooh_brain.json');
+  const brain = await res.json();
+  const scored = brain.careers.map(c => ({
+    title: c.title,
+    traits: c.traits,
+    score: c.traits.filter(t=>traits.includes(t)).length
+  })).sort((a,b)=>b.score-a.score).slice(0,5);
+  const box = document.getElementById('matches');
+  if(!scored.length){ box.innerHTML = '<p class="card">No matches yet. Go back and select traits.</p>'; return; }
+  box.innerHTML = scored.map(s => (
+    '<div class="card"><strong>'+s.title+'</strong><br>'+
+    'Matches: '+s.score+' • Traits: '+s.traits.join(', ')+'</div>'
+  )).join('');
+})();
+</script>
+</body>
+</html>

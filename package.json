@@ -1,8 +1,5 @@
 {
-  "name": "nova-all-in-one",
+  "name": "nova-final",
   "private": true,
-  "scripts": {
-    "start": "serve .",
-    "build": "echo 'Static build'"
-  }
+  "scripts": {}
 }

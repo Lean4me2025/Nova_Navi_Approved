@@ -1,11 +1,29 @@
-<!DOCTYPE html><html><head>
-<meta charset='utf-8'><title>NOVA Intro</title>
-<link rel="stylesheet" href="css/styles.css"></head>
-<body><main class="container">
-<h1 class="nova-title">NOVA</h1>
-<div class="marquee-wrap"><div class="marquee"><span id="marquee-text"></span></div></div>
-<button id="startBtn" class="btn">▶ Start</button>
-<button id="continueBtn" class="btn" style="display:none;">Continue ➜</button>
-<audio id="introAudio" preload="auto"><source src="assets/audio/MyRecording_trimmed.mp3" type="audio/mpeg"></audio>
-<p id="helperNote">Press Start to begin.</p>
-</main><script src="js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA Intro</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1 class="nova-title">NOVA</h1>
+    <p class="tagline">Purpose. Clarity. Momentum.</p>
+
+    <div class="marquee-wrap">
+      <div class="marquee"><span id="marquee-text"></span></div>
+    </div>
+
+    <button id="startBtn" class="btn">▶ Start</button>
+    <button id="continueBtn" class="btn" style="display:none;">Continue ➜</button>
+
+    <audio id="introAudio" preload="auto">
+      <source src="assets/audio/MyRecording_trimmed.mp3" type="audio/mpeg">
+    </audio>
+
+    <p id="helperNote" class="helper-note">Press Start to begin.</p>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>

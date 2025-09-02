@@ -1,1 +1,30 @@
-<html><head><title>Traits</title><link rel='stylesheet' href='css/styles.css'></head><body><h1>Traits</h1><form id='traitsForm'><input type='checkbox' name='trait' value='Leadership'>Leadership<br><input type='checkbox' name='trait' value='Creativity'>Creativity<br><button class='btn'>See Results</button></form><script>document.getElementById('traitsForm').addEventListener('submit',e=>{e.preventDefault();const traits=[...document.querySelectorAll('input[name=trait]:checked')].map(x=>x.value);localStorage.setItem('nova_traits',JSON.stringify(traits));window.location='results.html';});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA Traits</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Select Traits</h1>
+    <form id="traitsForm">
+      <label><input type="checkbox" name="trait" value="Leadership"> Leadership</label><br>
+      <label><input type="checkbox" name="trait" value="Creativity"> Creativity</label><br>
+      <label><input type="checkbox" name="trait" value="Problem Solving"> Problem Solving</label><br>
+      <label><input type="checkbox" name="trait" value="Empathy"> Empathy</label><br>
+      <label><input type="checkbox" name="trait" value="Detail Oriented"> Detail Oriented</label><br>
+      <button class="btn" type="submit">See Results</button>
+    </form>
+  </main>
+  <script>
+    document.getElementById('traitsForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      const traits=[...document.querySelectorAll('input[name=trait]:checked')].map(x=>x.value);
+      localStorage.setItem('nova_traits',JSON.stringify(traits));
+      window.location.href='results.html';
+    });
+  </script>
+</body>
+</html>

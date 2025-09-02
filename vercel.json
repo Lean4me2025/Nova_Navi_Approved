@@ -5,6 +5,14 @@
     {
       "src": "^/$",
       "dest": "/index.html"
+    },
+    {
+      "src": "^/index$",
+      "dest": "/index.html"
+    },
+    {
+      "src": "^/(traits|results|navi)$",
+      "dest": "/$1.html"
     }
   ]
 }

@@ -22,3 +22,11 @@ This bundle includes:
 
 ## Update the transcript
 Edit `NOVA_TRANSCRIPT` in `js/main.js` to the exact words of your audio.
+
+
+---
+### LOCKED Deployment Notes
+- `vercel.json` explicitly maps `/` → `index.html` and `/traits`, `/results`, `/navi` → their `.html` files.
+- `404.html` redirects to `/` as a safety net.
+- A minimal serverless function `/api/hello.js` is included to ensure Vercel deploys the project cleanly.
+- No build step required; static hosting only.

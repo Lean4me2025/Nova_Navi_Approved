@@ -1,32 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NOVA — Grand Rising</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <title>NOVA — Intro</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin:0; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .wrap { text-align:center; padding:24px; max-width:720px; }
+    .title { font-size: clamp(28px, 4vw, 40px); margin-bottom: 12px; }
+    .sub { color:#555; margin-bottom: 24px; }
+    button { font-size:18px; padding:14px 22px; border-radius:12px; border:0; cursor:pointer; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="header">
-        <h1>Welcome to NOVA</h1>
-        <span class="badge">Purpose Engine • v1.0</span>
-      </div>
-      <p class="small">NOVA greets the user with a short audio intro and a gentle start. If autoplay is blocked, press Start.</p>
-      <div id="audioWrap">
-        <audio id="introAudio" src="/assets/audio/intro.mp3" preload="auto"></audio>
-      </div>
-      <div style="margin-top:12px">
-        <button class="btn" id="startBtn">Start</button>
-        <button class="btn" id="skipBtn" style="margin-left:8px; background: #1e1e2a; color:#f2f2f7;">Skip Audio</button>
-      </div>
-      <hr/>
-      <p class="small">NOVA uses her local knowledge first and checks for new career data monthly.</p>
+  <div class="wrap">
+    <div class="title">Welcome to NOVA</div>
+    <div class="sub">Tap <em>Start</em> to begin. Audio will play.</div>
+    <audio id="introAudio" preload="auto">
+      <source src="/assets/audio/intro.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div>
+      <button id="startBtn">Start</button>
     </div>
-    <footer>© NOVA & NAVI</footer>
   </div>
-
-  <script type="module" src="/js/main.js"></script>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>

@@ -1,31 +1,28 @@
-import { loadOOH } from '/js/dataLoader.js';
+// NOVA intro audio logic
+(function(){
+  const audio = document.getElementById('introAudio');
+  const btn = document.getElementById('startBtn');
 
-const audio = document.getElementById('introAudio');
-const startBtn = document.getElementById('startBtn');
-const skipBtn = document.getElementById('skipBtn');
+  // Attempt gentle autoplay after load (may be blocked)
+  window.addEventListener('load', () => {
+    if (!audio) return;
+    const tryPlay = () => audio.play().catch(() => {});
+    // prime once network ready
+    if (audio.readyState >= 2) tryPlay(); else audio.addEventListener('canplay', tryPlay, { once:true });
+  });
 
-async function init() {
-  // Preload OOH (snapshot first, then try latest)
-  window.NOVA_OOH = await loadOOH('/data/ooh_snapshot.min.json');
-  // Attempt gentle autoplay (may be blocked)
-  try {
-    await audio.play();
-    // After playback starts (or immediately if short), go to traits after 3s
-    setTimeout(() => location.href = '/traits.html', 3000);
-  } catch (e) {
-    // Autoplay blocked — wait for user
+  // Unblock policy on first user gesture
+  function unlockAndPlay(){
+    audio.play().catch(() => {});
+    // Proceed to next screen here if desired, e.g. window.location.href = '/traits.html';
+    document.removeEventListener('click', unlockAndPlay);
+    document.removeEventListener('touchstart', unlockAndPlay);
+    document.removeEventListener('keydown', unlockAndPlay);
   }
-}
+  document.addEventListener('click', unlockAndPlay, { once:true });
+  document.addEventListener('touchstart', unlockAndPlay, { once:true });
+  document.addEventListener('keydown', unlockAndPlay, { once:true });
 
-startBtn.addEventListener('click', async () => {
-  try {
-    await audio.play();
-  } catch {}
-  location.href = '/traits.html';
-});
-
-skipBtn.addEventListener('click', () => {
-  location.href = '/traits.html';
-});
-
-init();
+  // Button explicit trigger
+  if (btn) btn.addEventListener('click', unlockAndPlay);
+})();

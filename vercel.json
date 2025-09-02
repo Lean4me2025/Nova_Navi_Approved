@@ -1,5 +1,35 @@
 {
-  "crons": [
-    { "path": "/api/cron/bls-ooh-monthly", "schedule": "0 12 1 * *" }
+  "redirects": [
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)/index.html",
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
+      "source": "/www(.*)",
+      "destination": "/$1",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/audio/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

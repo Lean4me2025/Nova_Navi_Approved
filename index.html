@@ -1,37 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NOVA — Intro</title>
-  <link rel="preload" href="assets/audio/MyRecording_trimmed.mp3" as="audio" type="audio/mpeg">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <div class="brand">
-      <h1 class="nova-title">NOVA</h1>
-      <p class="tagline">Purpose. Clarity. Momentum.</p>
-    </div>
-
-    <div class="marquee-wrap" aria-live="polite" aria-atomic="true">
-      <div id="marquee" class="marquee"><span id="marquee-text"></span></div>
-    </div>
-
-    <button id="startBtn" class="btn-primary" type="button" aria-label="Start NOVA Intro">
-      ▶ Start
-    </button>
-
-    <audio id="introAudio" preload="auto">
-      <source src="assets/audio/MyRecording_trimmed.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-
-    <p class="helper-note" id="helperNote">
-      Click Start to play the intro and see the welcome message scroll across.
-    </p>
-  </main>
-
-  <script src="main.js"></script>
-</body>
-</html>
+<!DOCTYPE html><html><head>
+<meta charset='utf-8'><title>NOVA Intro</title>
+<link rel="stylesheet" href="css/styles.css"></head>
+<body><main class="container">
+<h1 class="nova-title">NOVA</h1>
+<div class="marquee-wrap"><div class="marquee"><span id="marquee-text"></span></div></div>
+<button id="startBtn" class="btn">▶ Start</button>
+<button id="continueBtn" class="btn" style="display:none;">Continue ➜</button>
+<audio id="introAudio" preload="auto"><source src="assets/audio/MyRecording_trimmed.mp3" type="audio/mpeg"></audio>
+<p id="helperNote">Press Start to begin.</p>
+</main><script src="js/main.js"></script></body></html>

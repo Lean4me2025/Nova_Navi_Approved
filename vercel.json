@@ -1,35 +1,10 @@
 {
-  "redirects": [
+  "version": 2,
+  "routes": [
     {
-      "source": "/index",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/home",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)/index.html",
-      "destination": "/$1",
-      "permanent": true
-    },
-    {
-      "source": "/www(.*)",
-      "destination": "/$1",
-      "permanent": true
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
-  "headers": [
-    {
-      "source": "/assets/audio/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
+  "cleanUrls": true
 }

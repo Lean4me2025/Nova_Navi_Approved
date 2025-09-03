@@ -1,18 +1,7 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "routes": [
-    {
-      "src": "^/$",
-      "dest": "/index.html"
-    },
-    {
-      "src": "^/index$",
-      "dest": "/index.html"
-    },
-    {
-      "src": "^/(traits|results|navi)$",
-      "dest": "/$1.html"
-    }
+  "headers": [
+    { "source": "/assets/audio/(.*)\.mp3", "headers": [{ "key": "Content-Type", "value": "audio/mpeg" }] },
+    { "source": "/assets/audio/(.*)\.m4a", "headers": [{ "key": "Content-Type", "value": "audio/mp4" }] },
+    { "source": "/assets/audio/(.*)\.ogg", "headers": [{ "key": "Content-Type", "value": "audio/ogg" }] }
   ]
 }
